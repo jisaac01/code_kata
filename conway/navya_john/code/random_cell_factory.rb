@@ -1,4 +1,4 @@
-#require_relative 'cell'
+require_relative 'cell'
 
 
 class RandomCellFactory
