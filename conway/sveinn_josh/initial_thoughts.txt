@@ -1,0 +1,21 @@
+Entities: Cell, Matrix, Display, Rulemaster, Neighbors, NeighborMaster ?
+Actions: Tick, Celldeath, Cellbrith, Display, GameOver
+Data: current state of the world, cell is alive or dead, which generation, is game over?
+
+
+algortihm:
+-----------
+seed the initial state of the world
+while not game over
+	tick!
+
+
+set the current state of the world to the some initial state
+if game not over
+	from the current state apply the rules of life to each cell
+	update current state 
+	
+	
+	
+from the current state apply the rules of life to each cell
+	
