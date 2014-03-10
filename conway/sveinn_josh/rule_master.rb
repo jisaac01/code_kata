@@ -1,23 +1,6 @@
 class RuleMaster
 
-  +
-  3.20
+  def self.apply_rules(matrix)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  end
 end
