@@ -18,4 +18,96 @@ class RuleMasterTest < Test::Unit::TestCase
 
     assert_equal Matrix.new([[new_cell, new_cell, new_cell], [new_cell]]), new_matrix
   end
+
+  def test_apply_cell_rules__live__under_two_neighbors__dies
+    alive_cell = Cell.new(1)
+
+    matrix = Matrix.new([])
+    matrix.expects(:neighbor_count).with(alive_cell).returns(0)
+
+    new_cell = RuleMaster.apply_cell_rules(matrix, alive_cell)
+    assert alive_cell.alive?
+    assert !new_cell.alive?
+
+
+    alive_cell = Cell.new(1)
+
+    matrix = Matrix.new([])
+    matrix.expects(:neighbor_count).with(alive_cell).returns(1)
+
+    new_cell = RuleMaster.apply_cell_rules(matrix, alive_cell)
+    assert alive_cell.alive?
+    assert !new_cell.alive?
+  end
+
+  def test_apply_cell_rules__live__two_or_three_neighbors__lives
+    alive_cell = Cell.new(1)
+
+    matrix = Matrix.new([])
+    matrix.expects(:neighbor_count).with(alive_cell).returns(2)
+
+    new_cell = RuleMaster.apply_cell_rules(matrix, alive_cell)
+    assert alive_cell.alive?
+    assert new_cell.alive?
+
+    alive_cell = Cell.new(1)
+
+    matrix = Matrix.new([])
+    matrix.expects(:neighbor_count).with(alive_cell).returns(3)
+
+    new_cell = RuleMaster.apply_cell_rules(matrix, alive_cell)
+    assert alive_cell.alive?
+    assert new_cell.alive?
+  end
+
+  def test_apply_cell_rules__live__three_or_more_neighbors__dies
+    alive_cell = Cell.new(1)
+
+    matrix = Matrix.new([])
+    matrix.expects(:neighbor_count).with(alive_cell).returns(4)
+
+    new_cell = RuleMaster.apply_cell_rules(matrix, alive_cell)
+    assert alive_cell.alive?
+    assert !new_cell.alive?
+
+
+    alive_cell = Cell.new(1)
+
+    matrix = Matrix.new([])
+    matrix.expects(:neighbor_count).with(alive_cell).returns(9)
+
+    new_cell = RuleMaster.apply_cell_rules(matrix, alive_cell)
+    assert alive_cell.alive?
+    assert !new_cell.alive?
+  end
+
+  def test_apply_cell_rules__dead__three_neighbors__lives
+    dead_cell = Cell.new(0)
+    assert !dead_cell.alive?
+
+    matrix = Matrix.new([])
+    matrix.expects(:neighbor_count).with(dead_cell).returns(3)
+
+    new_cell = RuleMaster.apply_cell_rules(matrix, dead_cell)
+    assert !dead_cell.alive?
+    assert new_cell.alive?
+  end
+
+  def test_apply_cell_rules__dead__not_three_neighbors__dead
+    dead_cell = Cell.new(0)
+
+    matrix = Matrix.new([])
+    matrix.expects(:neighbor_count).with(dead_cell).returns(2)
+
+    new_cell = RuleMaster.apply_cell_rules(matrix, dead_cell)
+    assert !dead_cell.alive?
+    assert !new_cell.alive?
+
+    matrix = Matrix.new([])
+    matrix.expects(:neighbor_count).with(dead_cell).returns(4)
+
+    new_cell = RuleMaster.apply_cell_rules(matrix, dead_cell)
+    assert !dead_cell.alive?
+    assert !new_cell.alive?
+  end
 end

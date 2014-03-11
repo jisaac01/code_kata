@@ -9,7 +9,18 @@ class RuleMaster
     Matrix.new(result)
   end
 
-  def self.apply_cell_rules(cell)
+  def self.apply_cell_rules(matrix, cell)
+    neighbor_count = matrix.neighbor_count(cell)
+    new_cell = Cell.new(cell.alive?)
 
+    if neighbor_count < 2 # rule 1
+      new_cell.kill
+    elsif neighbor_count == 3 # rule 4
+      new_cell.revive
+    elsif neighbor_count > 3
+      new_cell.kill
+    end
+
+    new_cell
   end
 end
