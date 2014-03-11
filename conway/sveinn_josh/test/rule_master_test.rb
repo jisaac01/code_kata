@@ -7,16 +7,12 @@ require './cell'
 
 class RuleMasterTest < Test::Unit::TestCase
   def test_apply_rules__iterates_through_each_cell_and_applies
-    cell = ::Cell.new(1)
-    cell2 = ::Cell.new(1)
-    cell3 = ::Cell.new(1)
-    cell4 = ::Cell.new(1)
-    matrix = [[:cell, :cell2, :cell3], [:cell4]]
+    matrix = Matrix.new([[1, 1, 1], [1]])
     new_cell = ::Cell.new(0)
-    RuleMaster.expects(:apply_cell_rules).with(:cell).returns(new_cell)
-    RuleMaster.expects(:apply_cell_rules).with(:cell2).returns(new_cell)
-    RuleMaster.expects(:apply_cell_rules).with(:cell3).returns(new_cell)
-    RuleMaster.expects(:apply_cell_rules).with(:cell4).returns(new_cell)
+    RuleMaster.expects(:apply_cell_rules).with(matrix.cell_matrix[0][0]).returns(new_cell)
+    RuleMaster.expects(:apply_cell_rules).with(matrix.cell_matrix[0][1]).returns(new_cell)
+    RuleMaster.expects(:apply_cell_rules).with(matrix.cell_matrix[0][2]).returns(new_cell)
+    RuleMaster.expects(:apply_cell_rules).with(matrix.cell_matrix[1][0]).returns(new_cell)
 
     new_matrix = RuleMaster.apply_rules(matrix)
 

@@ -1,5 +1,6 @@
-require './matrix'
 require 'test/unit'
+
+require '../matrix'
 
 class MatrixTest < Test::Unit::TestCase
 
@@ -21,6 +22,33 @@ class MatrixTest < Test::Unit::TestCase
     end
 
     assert_equal expected_alive_matrix, actual_alive_matrix
+  end
+
+  def test_cell_exists
+    seed_matrix1 = [[0,1,0], [0,0,0], [0,0,1]]
+    matrix1 = Matrix.new(seed_matrix1)
+
+    assert matrix1.send(:cell_exists?,0,0)
+
+    assert !matrix1.send(:cell_exists?,0,10)
+  end
+
+  def test_equals
+    seed_matrix1 = [[0,1,0], [0,0,0], [0,0,1]]
+    matrix1 = Matrix.new(seed_matrix1)
+
+    seed_matrix2 = [[0,1,0], [0,0,0], [0,0,1]]
+    matrix2 = Matrix.new(seed_matrix2)
+
+    assert matrix1 == matrix2, "matrixes are not equal!"
+
+    seed_matrix3 = [[0,1,0], [0,0,1], [0,0,1]]
+    matrix3 = Matrix.new(seed_matrix3)
+    assert matrix1 != matrix3, "matrixes are equal!"
+
+    seed_matrix4 = [[0,1,0], [0,0,0, 1], [0,0,1]]
+    matrix4 = Matrix.new(seed_matrix4)
+    assert matrix1 != matrix4, "matrixes are equal!"
   end
 
 

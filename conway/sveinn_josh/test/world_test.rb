@@ -1,8 +1,8 @@
-require './world'
 require 'test/unit'
 
-class WorldTest < Test::Unit::TestCase
+require '../world'
 
+class WorldTest < Test::Unit::TestCase
 
 
 end

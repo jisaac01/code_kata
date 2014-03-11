@@ -1,9 +1,9 @@
 require 'test/unit'
 require 'mocha/setup'
 
-require './game_of_life'
-require './matrix'
-require './rule_master'
+require '../game_of_life'
+require '../matrix'
+require '../rule_master'
 
 class GameOfLifeTest < Test::Unit::TestCase
 

@@ -1,5 +1,6 @@
-require './cell'
 require 'test/unit'
+
+require '../cell'
 
 class CellTest < Test::Unit::TestCase
 
