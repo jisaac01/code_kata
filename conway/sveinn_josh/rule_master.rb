@@ -1,17 +1,17 @@
 class RuleMaster
 
   def self.apply_rules(matrix)
-    result = matrix.cell_matrix.map do |row|
-      row.map do |cell|
-        apply_cell_rules(cell)
+    result = matrix.cell_matrix.map.with_index do |row, i|
+      row.map.with_index do |cell, j|
+        apply_cell_rules(matrix, i, j)
       end
     end
     Matrix.new(result)
   end
 
-  def self.apply_cell_rules(matrix, cell)
-    neighbor_count = matrix.neighbor_count(cell)
-    new_cell = Cell.new(cell.alive?)
+  def self.apply_cell_rules(matrix, i, j)
+    neighbor_count = matrix.neighbor_count(i, j)
+    new_cell = Cell.new(matrix.cell_matrix[i][j].alive?)
 
     if neighbor_count < 2 # rule 1
       new_cell.kill

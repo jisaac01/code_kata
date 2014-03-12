@@ -24,6 +24,34 @@ class MatrixTest < Test::Unit::TestCase
     assert_equal expected_alive_matrix, actual_alive_matrix
   end
 
+  def test_neighbor_count
+    seed_matrix = [[0,1,0],
+                   [0,0,0],
+                   [0,0,1]]
+    matrix = Matrix.new(seed_matrix)
+    assert_equal 1, matrix.neighbor_count(0,0)
+    assert_equal 0, matrix.neighbor_count(0,1)
+    assert_equal 2, matrix.neighbor_count(1,1)
+  end
+
+  def test_neighbor_count__boundaries
+    seed_matrix = [[1,1,1],
+                   [1,1,1],
+                   [1,1,1]]
+    matrix = Matrix.new(seed_matrix)
+    assert_equal 3, matrix.neighbor_count(0,0)
+    assert_equal 5, matrix.neighbor_count(0,1)
+    assert_equal 3, matrix.neighbor_count(0,2)
+
+    assert_equal 5, matrix.neighbor_count(1,0)
+    assert_equal 8, matrix.neighbor_count(1,1)
+    assert_equal 5, matrix.neighbor_count(1,2)
+
+    assert_equal 3, matrix.neighbor_count(2,0)
+    assert_equal 5, matrix.neighbor_count(2,1)
+    assert_equal 3, matrix.neighbor_count(2,2)
+  end
+
   def test_cell_exists
     seed_matrix1 = [[0,1,0], [0,0,0], [0,0,1]]
     matrix1 = Matrix.new(seed_matrix1)
@@ -31,6 +59,17 @@ class MatrixTest < Test::Unit::TestCase
     assert matrix1.send(:cell_exists?,0,0)
 
     assert !matrix1.send(:cell_exists?,0,10)
+  end
+
+  def test_cell_alive
+    seed_matrix1 = [[0,1,0], [0,0,0], [0,0,1]]
+    matrix1 = Matrix.new(seed_matrix1)
+
+    assert !matrix1.send(:cell_alive?,0,0)
+
+    assert !matrix1.send(:cell_alive?,0,10)
+
+    assert matrix1.send(:cell_alive?,0,1)
   end
 
   def test_equals

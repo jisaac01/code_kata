@@ -24,12 +24,28 @@ class Matrix
     true
   end
 
+  def neighbor_count(x, y)
+    neighbors = 0
+    [-1,0,1].each do |x_offset|
+      [-1,0,1].each do |y_offset|
+        next if 0 == x_offset && 0 == y_offset
+        neighbors += 1 if cell_alive?(x + x_offset, y + y_offset)
+      end
+    end
+    neighbors
+  end
+
   protected
 
   def cell_exists?(i,j)
-    cell_matrix && cell_matrix[i] && cell_matrix[i][j] && cell_matrix[i][j].respond_to?(:alive?)
+      i >= 0 && j >= 0 &&  cell_matrix && i < cell_matrix.length && cell_matrix[i] &&
+        j < cell_matrix[i].length && cell_matrix[i][j] &&
+        cell_matrix[i][j].respond_to?(:alive?)
   end
 
+  def cell_alive?(i,j)
+    cell_exists?(i,j) && cell_matrix[i][j].alive?
+  end
   private
 
   def generate_cell_matrix
