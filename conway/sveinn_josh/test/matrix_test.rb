@@ -1,4 +1,5 @@
 require 'test/unit'
+require 'stringio'
 
 require '../matrix'
 
@@ -50,6 +51,22 @@ class MatrixTest < Test::Unit::TestCase
     assert_equal 3, matrix.neighbor_count(2,0)
     assert_equal 5, matrix.neighbor_count(2,1)
     assert_equal 3, matrix.neighbor_count(2,2)
+  end
+
+  def test_draw
+    seed_matrix = [[0,1,0],
+                   [0,0,0],
+                   [0,0,1]]
+    matrix = Matrix.new(seed_matrix)
+
+    printout = StringIO.new
+    $stdout = printout
+
+    matrix.draw
+
+    expected = "---\n| * |\n|   |\n|  *|\n---\n"
+
+    assert_equal expected, printout.string
   end
 
   def test_cell_exists

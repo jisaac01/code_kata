@@ -10,14 +10,16 @@ class GameOfLifeTest < Test::Unit::TestCase
   def test_run
     game_conditions = [[0,1,0], [0,0,0], [1,1,0]]
 
-    Matrix.expects(:new).with(game_conditions).returns(:matrix)
+    matrix = stub
+    Matrix.expects(:new).with(game_conditions).returns(matrix)
 
     game = GameOfLife.new(game_conditions)
     game.expects(:game_over?).twice.returns(false).then.returns(true)
+    matrix.expects(:draw).once
     game.expects(:tick!).once
     game.run
 
-    assert_equal :matrix, game.instance_variable_get(:@current_matrix)
+    assert_equal matrix, game.instance_variable_get(:@current_matrix)
   end
 
   def test_game_over?

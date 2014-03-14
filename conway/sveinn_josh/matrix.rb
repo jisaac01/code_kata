@@ -35,6 +35,20 @@ class Matrix
     neighbors
   end
 
+  def draw
+    print '-' * cell_matrix.length
+    print "\n"
+    cell_matrix.each do |row|
+      print '|'
+      row.each do |cell|
+        print cell.alive? ? '*' : ' '
+      end
+      print "|\n"
+    end
+    print '-' * cell_matrix.length
+    print "\n"
+  end
+
   protected
 
   def cell_exists?(i,j)
