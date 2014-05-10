@@ -1,2 +1,1 @@
-add test for world
-add test for Cell.new with a cell initializer
+Obviously you can see some features to add immediately, like filling out the space in the matrix with zeros, determining when a game of life is 'dead', reading input from a file, passing in only positions of live cells, a GUI that lets you click starting positions, etc. In retrospect, maybe the rendering duties should have been handled by a map renderer or something (I can't recall - did we discuss this Sveinn?)
