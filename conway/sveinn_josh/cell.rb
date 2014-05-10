@@ -1,6 +1,7 @@
 class Cell
 
   def initialize(alive)
+    alive = alive.respond_to?(:alive?) ? alive.alive? : alive
     @alive = (alive == 1 || alive == true)
   end
 
@@ -16,4 +17,7 @@ class Cell
     @alive = true
   end
 
+  def to_s
+    alive?.to_s
+  end
 end

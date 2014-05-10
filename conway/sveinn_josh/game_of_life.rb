@@ -1,5 +1,5 @@
-require './matrix'
-require './rule_master'
+require_relative 'matrix'
+require_relative 'rule_master'
 
 class GameOfLife
   ITERATIONS = 100
@@ -12,7 +12,6 @@ class GameOfLife
   def run
     while !game_over? do
       @current_matrix.draw
-      puts "Calculating next state..."
       tick!
     end
   end

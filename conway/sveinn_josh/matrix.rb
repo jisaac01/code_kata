@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/cell"
+require_relative "cell"
 
 class Matrix
 
@@ -47,6 +47,14 @@ class Matrix
     end
     print '-' * cell_matrix.length
     print "\n"
+  end
+
+  def to_s
+    cell_matrix.map do |row|
+      row.map do |cell|
+        cell.to_s
+      end
+    end.join(',')
   end
 
   protected

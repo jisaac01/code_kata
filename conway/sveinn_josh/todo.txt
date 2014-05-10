@@ -1,0 +1,2 @@
+add test for world
+add test for Cell.new with a cell initializer

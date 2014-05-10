@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'stringio'
 
-require '../matrix'
+require_relative '../matrix'
 
 class MatrixTest < Test::Unit::TestCase
 

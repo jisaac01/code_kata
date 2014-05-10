@@ -1,9 +1,9 @@
 require 'test/unit'
 require 'mocha/setup'
 
-require '../rule_master'
-require '../matrix'
-require '../cell'
+require_relative '../rule_master'
+require_relative '../matrix'
+require_relative '../cell'
 
 class RuleMasterTest < Test::Unit::TestCase
   def test_apply_rules__iterates_through_each_cell_and_applies

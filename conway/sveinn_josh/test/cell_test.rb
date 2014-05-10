@@ -1,6 +1,6 @@
 require 'test/unit'
 
-require '../cell'
+require_relative '../cell'
 
 class CellTest < Test::Unit::TestCase
 

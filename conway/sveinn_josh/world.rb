@@ -1,4 +1,4 @@
-require './game_of_life'
+require_relative 'game_of_life'
 
 class World
 
@@ -9,7 +9,7 @@ class World
   end
 
   def self.run
-    initial_state = [[1],[0]]
+    initial_state = [[0,0,0,0,0],[0,0,0,0,0],[0,1,1,1,0],[0,0,0,0,0],[0,0,0,0,0]]
     gol = GameOfLife.new(initial_state)
     gol.run
   end
