@@ -2,18 +2,17 @@ require_relative 'game_of_life'
 
 class World
 
+  DEFAULT_STARTING_CONFIG = [[0,0,0,0,0],[0,0,0,0,0],[0,1,1,1,0],[0,0,0,0,0],[0,0,0,0,0]]
   attr_reader :simple_state
 
-  def initialize(seed_matrix)
-    @simple_state = seed_matrix
-  end
-
-  def self.run
-    initial_state = [[0,0,0,0,0],[0,0,0,0,0],[0,1,1,1,0],[0,0,0,0,0],[0,0,0,0,0]]
+  def self.run(args = nil)
+    initial_state = args || DEFAULT_STARTING_CONFIG
     gol = GameOfLife.new(initial_state)
     gol.run
   end
 
 end
 
-World.run
+arrays = (ARGV[0] || "").scan(/\[[\d\,]+\]/).map(&:to_s)
+integer_array = arrays.map { |a| a.scan(/\d/).map(&:to_i) }
+World.run integer_array
