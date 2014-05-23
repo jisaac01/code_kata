@@ -1,6 +1,6 @@
 require_relative 'game_of_life'
 
-class World
+class Conway
 
   DEFAULT_STARTING_CONFIG = [[0,0,0,0,0],[0,0,0,0,0],[0,1,1,1,0],[0,0,0,0,0],[0,0,0,0,0]]
   attr_reader :simple_state
@@ -15,4 +15,4 @@ end
 
 arrays = (ARGV[0] || "").scan(/\[[\d\,]+\]/).map(&:to_s)
 integer_array = arrays.map { |a| a.scan(/\d/).map(&:to_i) }
-World.run integer_array
+Conway.run integer_array
