@@ -1,5 +1,5 @@
 require_relative "cell"
-require_relative "ascii_drawer"
+require_relative "gosu_drawer"
 
 class Matrix
 
@@ -8,7 +8,7 @@ class Matrix
   def initialize(seed_matrix)
     @seed_matrix = seed_matrix
     @cell_matrix = generate_cell_matrix
-    @matrix_drawer = AsciiDrawer.new
+    @matrix_drawer = GosuDrawer.new
   end
 
   def ==(other)
