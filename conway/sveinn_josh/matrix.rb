@@ -1,4 +1,5 @@
 require_relative "cell"
+require_relative "gosu_drawer"
 
 class Matrix
 
@@ -7,6 +8,7 @@ class Matrix
   def initialize(seed_matrix)
     @seed_matrix = seed_matrix
     @cell_matrix = generate_cell_matrix
+    @matrix_drawer = GosuDrawer.new
   end
 
   def ==(other)
@@ -36,17 +38,7 @@ class Matrix
   end
 
   def draw
-    print '-' * cell_matrix.length
-    print "\n"
-    cell_matrix.each do |row|
-      print '|'
-      row.each do |cell|
-        print cell.alive? ? '*' : ' '
-      end
-      print "|\n"
-    end
-    print '-' * cell_matrix.length
-    print "\n"
+    @matrix_drawer.draw(cell_matrix)
   end
 
   def to_s

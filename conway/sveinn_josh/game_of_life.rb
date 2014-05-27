@@ -7,13 +7,20 @@ class GameOfLife
   def initialize(game_conditions)
     @current_matrix = Matrix.new(game_conditions)
     @iterations = 0
+    @last_update = Time.now
   end
 
-  def run
-    while !game_over? do
-      @current_matrix.draw
-      tick!
+  def tick!
+    now = Time.now
+    if(now - @last_update) >= 0.5 && !game_over?
+      @last_update = now
+      @iterations += 1
+      @current_matrix = RuleMaster.apply_rules(@current_matrix)
     end
+  end
+
+  def draw
+    @current_matrix.draw
   end
 
   private
@@ -22,8 +29,4 @@ class GameOfLife
     @iterations == ITERATIONS
   end
 
-  def tick!
-    @iterations += 1
-    @current_matrix = RuleMaster.apply_rules(@current_matrix)
-  end
 end

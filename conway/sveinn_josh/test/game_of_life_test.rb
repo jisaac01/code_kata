@@ -7,19 +7,10 @@ require_relative '../rule_master'
 
 class GameOfLifeTest < Test::Unit::TestCase
 
-  def test_run
-    game_conditions = [[0,1,0], [0,0,0], [1,1,0]]
-
-    matrix = stub
-    Matrix.expects(:new).with(game_conditions).returns(matrix)
-
-    game = GameOfLife.new(game_conditions)
-    game.expects(:game_over?).twice.returns(false).then.returns(true)
-    matrix.expects(:draw).once
-    game.expects(:tick!).once
-    game.run
-
-    assert_equal matrix, game.instance_variable_get(:@current_matrix)
+  def test_draw
+    game = GameOfLife.new([])
+    game.instance_variable_get(:@current_matrix).expects(:draw)
+    game.draw
   end
 
   def test_game_over?
@@ -41,16 +32,37 @@ class GameOfLifeTest < Test::Unit::TestCase
   end
 
   def test_tick__increments_iterations
+    time = Time.now
+    Time.stubs(:now).returns(time)
     game = GameOfLife.new([])
     assert_equal 0, game.instance_variable_get(:@iterations)
+    Time.stubs(:now).returns(time + 1)
+    game.send(:tick!)
+    assert_equal 1, game.instance_variable_get(:@iterations)
+  end
+
+  def test_tick__does_nothing_in_less_than_a_second
+    time = Time.now
+    Time.stubs(:now).returns(time)
+    game = GameOfLife.new([])
+    assert_equal 0, game.instance_variable_get(:@iterations)
+    Time.stubs(:now).returns(time + 0.49)
+    game.send(:tick!)
+    assert_equal 0, game.instance_variable_get(:@iterations)
+    Time.stubs(:now).returns(time + 0.5)
     game.send(:tick!)
     assert_equal 1, game.instance_variable_get(:@iterations)
   end
 
   def test_tick__gives_us_a_new_matrix
+    time = Time.now
+    Time.stubs(:now).returns(time)
+
     seed_matrix = [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]
     new_matrix = Matrix.new([[0,0,0,0],[1,1,1,1],[1,1,1,1],[1,1,1,1]])
     game = GameOfLife.new(seed_matrix)
+
+    Time.stubs(:now).returns(time + 1)
     current_matrix = game.instance_variable_get(:@current_matrix)
     RuleMaster.expects(:apply_rules).with(current_matrix).returns(new_matrix)
     game.send(:tick!)
