@@ -2,6 +2,7 @@ require 'test/unit'
 require 'stringio'
 
 require_relative '../matrix'
+require_relative '../ascii_drawer'
 
 class AsciiDrawerTest < Test::Unit::TestCase
 
