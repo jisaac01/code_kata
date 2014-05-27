@@ -1,4 +1,5 @@
 require 'gosu'
+require 'yaml'
 require_relative 'game_of_life'
 
 class Conway < Gosu::Window
@@ -23,7 +24,13 @@ class Conway < Gosu::Window
   end
 end
 
-arrays = (ARGV[0] || "").scan(/\[[\d\,]+\]/).map(&:to_s)
-integer_array = arrays.map { |a| a.scan(/\d/).map(&:to_i) }
+args = (ARGV[0] || "")
+arrays = args.scan(/\[[\d\,]+\]/).map(&:to_s)
+if !arrays.empty?
+  integer_array = arrays.map { |a| a.scan(/\d/).map(&:to_i) }
+else
+  patterns = YAML.load_file('config/patterns.yml')
+  integer_array = patterns[args]
+end
 $conway = Conway.new(integer_array)
 $conway.show
